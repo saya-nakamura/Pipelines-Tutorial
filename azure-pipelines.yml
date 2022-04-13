@@ -6,6 +6,7 @@
 trigger:
 - main
 
+# Windowsイメージを構築する。
 pool:
   vmImage: 'windows-latest'
 
@@ -14,7 +15,9 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Debug'
 
+# Pipelinesで実行する手順は、steps以下に書いていく。
 steps:
+# taskは、MS側であらかじめ用意されている処理を実行する。
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -27,6 +30,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+# MSTestを動かす場合は、VSTestではなくDotNetCoreCLIのtestを使用する。
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
